@@ -21,6 +21,18 @@ public class ApplicationManager {
     private final LoginHelper auth;
     private final ContactHelper contact;
 
+    private static ThreadLocal<ApplicationManager> app = null;
+
+    public static ApplicationManager getInstance() {
+        if (app == null) {
+            app = new ThreadLocal<>();
+            ApplicationManager newInstance = new ApplicationManager();
+            newInstance.navigation.openHomePage();
+            app.set(newInstance);
+        }
+        return app.get();
+    }
+
     public ApplicationManager() {
         System.setProperty("webdriver.chrome.driver", "D:\\Another\\Univercity\\Тесты\\SeleniumSecond\\chromedriver.exe");
         driver = new ChromeDriver();
