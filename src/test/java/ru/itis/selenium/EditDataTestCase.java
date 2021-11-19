@@ -11,10 +11,10 @@ public class EditDataTestCase extends TestBase {
         app.getNavigation().goToAccount();
         app.getContact().editDataFields(changedUserData);
 
-        Assert.assertEquals(app.getContact().specialization, changedUserData.getSpecialization());
-        Assert.assertEquals(app.getContact().country, changedUserData.getCountry());
-        Assert.assertEquals(app.getContact().city, changedUserData.getCity());
-        Assert.assertEquals(app.getContact().region, changedUserData.getRegion());
+        Assert.assertEquals(app.getData().getSpecialization(), changedUserData.getSpecialization());
+        Assert.assertEquals(app.getData().getCountry(), changedUserData.getCountry());
+        Assert.assertEquals(app.getData().getCity(), changedUserData.getCity());
+        Assert.assertEquals(app.getData().getRegion(), changedUserData.getRegion());
     }
 }
 

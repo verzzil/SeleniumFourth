@@ -4,6 +4,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.itis.selenium.helpers.ContactHelper;
+import ru.itis.selenium.helpers.DataHelper;
 import ru.itis.selenium.helpers.LoginHelper;
 import ru.itis.selenium.helpers.NavigationHelper;
 
@@ -20,6 +21,7 @@ public class ApplicationManager {
     private final NavigationHelper navigation;
     private final LoginHelper auth;
     private final ContactHelper contact;
+    private final DataHelper data;
 
     private static ThreadLocal<ApplicationManager> app = null;
 
@@ -43,6 +45,7 @@ public class ApplicationManager {
         navigation = new NavigationHelper(this, baseUrl);
         auth = new LoginHelper(this);
         contact = new ContactHelper(this);
+        data = new DataHelper(this);
     }
 
     public void stop() {
@@ -67,5 +70,9 @@ public class ApplicationManager {
 
     public ContactHelper getContact() {
         return contact;
+    }
+
+    public DataHelper getData() {
+        return data;
     }
 }
