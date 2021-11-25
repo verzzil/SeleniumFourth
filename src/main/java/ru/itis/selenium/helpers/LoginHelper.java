@@ -19,4 +19,14 @@ public class LoginHelper extends HelperBase{
         driver.findElement(By.id("password_field")).sendKeys(user.getPassword());
         driver.findElement(By.name("go")).click();
     }
+
+    public void logout() {
+        driver.get("https://habr.com/ru/all/");
+        driver.findElement(By.xpath("//div[@id='app']/div/div[2]/div[2]/div/div/div[2]/div[3]/div/div/div/img")).click();
+        driver.findElement(By.xpath("//div[@id='app']/div/div[2]/div[2]/div/div/div[2]/div[3]/div/div[2]/div/div[5]/a[2]/span")).click();
+    }
+
+    public boolean checkLogin() {
+        return driver.getCurrentUrl().equals("https://habr.com/ru/all/");
+    }
 }

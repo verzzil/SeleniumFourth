@@ -1,5 +1,6 @@
 package ru.itis.selenium;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -14,21 +15,38 @@ public class AuthorizationTestCase extends TestBase {
 
     private final JSONParser jsonParser = new JSONParser();
 
+    @After
+    public void logout() {
+        app.getAuth().logout();
+    }
+
     @Test
-    public void authorizationTestCase() {
-        LoginData parsedData = jsonParser.parseLoginJson();
+    public void authorizationTestCaseWithValidData() throws InterruptedException {
+        LoginData data = jsonParser.parseLoginJson();
 
         app.getNavigation().openHomePage();
         app.getNavigation().openGroupPage();
-        app.getAuth().login(parsedData);
+        app.getAuth().login(data);
 
-        Assert.assertTrue(true);
-//        try {
-//            System.out.println(app.getDriver().findElement(By.id("//*[@id='app']/div[1]/div[2]/div[2]/div/div/div[2]/div")));
-//        } catch (NoSuchElementException e) {
-//            Assert.assertTrue(true);
-//        }
+        Thread.sleep(5000);
+        if (app.getAuth().checkLogin())
+            Assert.assertTrue(true);
+        else
+            Assert.fail();
+    }
 
+    @Test
+    public void authorizationTestCaseWithNotValidData() {
+        LoginData data = new LoginData("xan@mail.ru", "qwerty008");
+
+        app.getNavigation().openHomePage();
+        app.getNavigation().openGroupPage();
+        app.getAuth().login(data);
+
+        if (!app.getAuth().checkLogin())
+            Assert.assertTrue(true);
+        else
+            Assert.fail();
     }
 
 }
