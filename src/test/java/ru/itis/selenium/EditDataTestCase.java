@@ -2,19 +2,25 @@ package ru.itis.selenium;
 
 import org.junit.Assert;
 import org.junit.Test;
+import ru.itis.selenium.json.JSONParser;
+import ru.itis.selenium.json.model.EditProfileData;
+import ru.itis.selenium.model.PersonalData;
 import ru.itis.selenium.tests.TestBase;
 
 public class EditDataTestCase extends TestBase {
 
+    private final JSONParser jsonParser = new JSONParser();
+
     @Test
     public void editData() {
         app.getNavigation().goToAccount();
-        app.getContact().editDataFields(changedUserData);
+        EditProfileData parsedData = jsonParser.parseEditProfileJson();
+        app.getEditData().editDataFields(parsedData);
 
-        Assert.assertEquals(app.getData().getSpecialization(), changedUserData.getSpecialization());
-        Assert.assertEquals(app.getData().getCountry(), changedUserData.getCountry());
-        Assert.assertEquals(app.getData().getCity(), changedUserData.getCity());
-        Assert.assertEquals(app.getData().getRegion(), changedUserData.getRegion());
+        Assert.assertEquals(app.getData().getExpectedPersonalData().getSpecialization(), parsedData.getSpecialization());
+        Assert.assertEquals(app.getData().getExpectedPersonalData().getCountry(), parsedData.getCountry());
+        Assert.assertEquals(app.getData().getExpectedPersonalData().getCity(), parsedData.getCity());
+        Assert.assertEquals(app.getData().getExpectedPersonalData().getRegion(), parsedData.getRegion());
     }
 }
 

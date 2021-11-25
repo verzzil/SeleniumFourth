@@ -3,7 +3,7 @@ package ru.itis.selenium;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.itis.selenium.helpers.ContactHelper;
+import ru.itis.selenium.helpers.EditDataHelper;
 import ru.itis.selenium.helpers.DataHelper;
 import ru.itis.selenium.helpers.LoginHelper;
 import ru.itis.selenium.helpers.NavigationHelper;
@@ -20,10 +20,13 @@ public class ApplicationManager {
 
     private final NavigationHelper navigation;
     private final LoginHelper auth;
-    private final ContactHelper contact;
+    private final EditDataHelper editData;
     private final DataHelper data;
 
     private static ThreadLocal<ApplicationManager> app = null;
+
+    public static final String LOGIN_DATA_PATH = "D:\\Another\\Univercity\\Тесты\\SeleniumSecond\\src\\main\\java\\ru\\itis\\selenium\\login.json";
+    public static final String EDIT_PROFILE_DATA_PATH = "D:\\Another\\Univercity\\Тесты\\SeleniumSecond\\src\\main\\java\\ru\\itis\\selenium\\editprofile.json";
 
     public static ApplicationManager getInstance() {
         if (app == null) {
@@ -44,7 +47,7 @@ public class ApplicationManager {
         js = (JavascriptExecutor) driver;
         navigation = new NavigationHelper(this, baseUrl);
         auth = new LoginHelper(this);
-        contact = new ContactHelper(this);
+        editData = new EditDataHelper(this);
         data = new DataHelper(this);
     }
 
@@ -68,8 +71,8 @@ public class ApplicationManager {
         return auth;
     }
 
-    public ContactHelper getContact() {
-        return contact;
+    public EditDataHelper getEditData() {
+        return editData;
     }
 
     public DataHelper getData() {
